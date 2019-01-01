@@ -36,6 +36,27 @@ public class MainClass
 				else if(input.equals("savings account"))
 					myAccounts.add(new SavingsAccount(name, INT_RATE, MIN_BALANCE, MIN_BALANCE_FEE));
 			}
+			else if(input.equals("make a transaction"))
+			{
+				System.out.println("Would you like to deposit, withdraw, transfer, or get account numbers?");
+				input = in.nextLine();
+				
+				int transaction = 1;
+				switch(transaction)
+				{
+					case 1:
+						System.out.println("Please enter the account number you would like to deposit money into.");
+						int number = in.nextInt(); in.nextLine();
+						System.out.println("Please enter the amount of money you would like to deposit.");
+						number = in.nextInt(); in.nextLine();
+					case 2:
+						input = "withdraw";
+					case 3:
+						input = "transfer";
+					case 4:
+						input = "get account numbers";
+				}
+			}
 		}
 	}
 }
