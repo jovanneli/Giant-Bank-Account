@@ -19,13 +19,13 @@ public class MainClass
 		final double INT_RATE = 0.0025;
 		final double MIN_BALANCE = 300;
 		final double MIN_BALANCE_FEE = 10;
-		
-		System.out.println("Would you like to add an account, make a transaction, or terminate the program?");
-		String input = in.nextLine();
-		
+	
 		boolean terminate = true;
 		while(terminate)
 		{
+			System.out.println("Would you like to add an account, make a transaction, or terminate the program?");
+			String input = in.nextLine();
+			
 			if(input.equals("add an account"))
 			{
 				System.out.println("Please enter your name"); String name = in.nextLine();
@@ -38,25 +38,56 @@ public class MainClass
 			}
 			else if(input.equals("make a transaction"))
 			{
+				BankAccount account = null;
+				while(account == null)
+				{
+					System.out.println("Please enter the account number that you would like to perform the transaction.");
+					int number = in.nextInt(); in.nextLine();
+				
+					account = getAccount(number, myAccounts);
+					if(account == null)
+					{
+						System.out.println("That is an invalid input. Would you like to reenter an account number or retrieve all account numbers?");
+						input = in.nextLine();
+					}
+				}
+				
+			}
+				
 				System.out.println("Would you like to deposit, withdraw, transfer, or get account numbers?");
 				input = in.nextLine();
-				
 				int transaction = 1;
 				switch(transaction)
 				{
 					case 1:
-						System.out.println("Please enter the account number you would like to deposit money into.");
-						int number = in.nextInt(); in.nextLine();
+					try
+					{
 						System.out.println("Please enter the amount of money you would like to deposit.");
-						number = in.nextInt(); in.nextLine();
+						int amount = in.nextInt(); in.nextLine();
+					}
+					catch(IllegalArgumentException a)
+					{
+						
+					}
 					case 2:
-						input = "withdraw";
+						
 					case 3:
-						input = "transfer";
+						
 					case 4:
-						input = "get account numbers";
+						
 				}
-			}
 		}
 	}
+	
+	public static BankAccount getAccount(int num, ArrayList<BankAccount> myAccounts)
+	{
+		BankAccount account = null;
+		for(int i = 0; i < myAccounts.size(); i++)
+		{
+			if(myAccounts.get(i).getAccountNumber() == num)
+				account = myAccounts.get(i);
+		}
+		return account;
+	}
+	
 }

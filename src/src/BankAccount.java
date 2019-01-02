@@ -55,6 +55,14 @@ public abstract class BankAccount
 		return name;
 	}
 	/**
+	 * returns the account number
+	 * @return		account number
+	 */
+	public int getAccountNumber()
+	{
+		return accountNumber;
+	}
+	/**
 	 * returns balance of the account
 	 * @return	balance
 	 */
