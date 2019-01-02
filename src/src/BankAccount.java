@@ -75,7 +75,7 @@ public abstract class BankAccount
 	 */
 	public String toString()
 	{
-		return "Account Number: " + accountNumber + "\nName: " + name + "\nBalance: " + balance;
+		return "Account Number: " + accountNumber + "\tName: " + name + "\tBalance: " + balance;
 	}
 	/**
 	 * to be implemented in sub classes
