@@ -58,30 +58,30 @@ public class MainClass
 					
 					while(!isNumeric(number))
 					{
-						System.out.println("That is an invalid input. Please enter a valid numeric account number.");
+						System.out.println("That is an invalid input. Please try again.");
 						number = in.nextLine();
 					}
 					
 					account = getAccount(number, myAccounts);
 					if(account == null)
 					{
+						System.out.println("That account number does not exist.");
 						boolean invalidAccount = true;
 						while(invalidAccount)
 						{
-							System.out.println("That is an invalid input. Would you like to reenter an account number or retrieve all accounts?");
+							System.out.println("Would you like to reenter an account number or retrieve all accounts?");
 							input = in.nextLine();
 						
 							if(input.trim().toLowerCase().equals("reenter an account number"))
 								invalidAccount = false;
 							else if(input.trim().toLowerCase().equals("retrieve all accounts"))
 							{
+								String allAccounts = "";
 								boolean retrieveAccounts = true;
 								while(retrieveAccounts)
-								{
+								{	
 									System.out.println("Please enter your name."); 
 									input = in.nextLine();
-								
-									String allAccounts = "";
 									for(int i = 0; i < myAccounts.size(); i++)
 									{
 										if(myAccounts.get(i).getName().equals(input))
@@ -91,14 +91,12 @@ public class MainClass
 												allAccounts += "\tChecking Account\n";
 											else if(myAccounts.get(i) instanceof SavingsAccount)
 												allAccounts += "\tSavings Account\n";
-											System.out.println(allAccounts);
 											retrieveAccounts = false;
-											invalidAccount = false;
 										}
-										else
-											System.out.println("That is not a valid name. Please try again.");
 									}
 								}
+								System.out.println(allAccounts);
+								invalidAccount = false;
 							}
 							else
 								System.out.println("That is an invalid input. Please try again.");
@@ -170,24 +168,21 @@ public class MainClass
 						account2 = getAccount(number, myAccounts);
 						if(account2 == null || account2 == account)
 						{
-							System.out.println("That is an invalid input. Would you like to reenter an account number or retrieve all accounts?");
-							input = in.nextLine();
-							if(input.trim().toLowerCase().equals("retrieve all accounts"))
+							System.out.println("That is an invalid account number.");
+							boolean invalidAccount = true;
+							while(invalidAccount)
 							{
-								System.out.println("Please enter your name."); input = in.nextLine();
-								String allAccounts = "";
-								for(int i = 0; i < myAccounts.size(); i++)
+								System.out.println("Would you like to reenter an account number or retrieve all accounts?");
+								input = in.nextLine();
+							
+								if(input.trim().toLowerCase().equals("reenter an account number"))
+									invalidAccount = false;
+								else if(input.trim().toLowerCase().equals("retrieve all accounts"))
 								{
-									if(myAccounts.get(i).getName().equals(input))
-									{
-										allAccounts += myAccounts.get(i).toString();
-										if(myAccounts.get(i) instanceof CheckingAccount)
-											allAccounts += "\tChecking Account\n";
-										else if(myAccounts.get(i) instanceof SavingsAccount)
-											allAccounts += "\tSavings Account\n";
-									}
+									
 								}
-								System.out.println(allAccounts);
+								else
+									System.out.println("That is an invalid input. Please try again.");
 							}
 						}
 					}
@@ -203,20 +198,7 @@ public class MainClass
 					break;
 					
 					case "retrieve all accounts":
-						System.out.println("Please enter your name."); input = in.nextLine();
-						String allAccounts = "";
-						for(int i = 0; i < myAccounts.size(); i++)
-						{
-							if(myAccounts.get(i).getName().equals(input))
-							{
-								allAccounts += myAccounts.get(i).toString();
-								if(myAccounts.get(i) instanceof CheckingAccount)
-									allAccounts += "\tChecking Account\n";
-								else if(myAccounts.get(i) instanceof SavingsAccount)
-									allAccounts += "\tSavings Account\n";
-							}
-						}
-						System.out.println(allAccounts);
+						
 					break;
 					
 					default:
