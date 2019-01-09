@@ -15,7 +15,7 @@ public class MainClass
 		ArrayList<BankAccount> myAccounts = new ArrayList<BankAccount>();
 		final double OVER_DRAFT_FEE = 15;
 		final double TRANSACTION_FEE = 1.5;
-		final double FREE_TRANSACTIONS = 2;
+		final double FREE_TRANSACTIONS = 10;
 		final double INT_RATE = 0.0025;
 		final double MIN_BALANCE = 300;
 		final double MIN_BALANCE_FEE = 10;
@@ -167,7 +167,7 @@ public class MainClass
 					}
 						
 					BankAccount account2 = null;
-					while(account2 == null)
+					while(account2 == null || account2 == account)
 					{
 						System.out.println("Please enter the account number that you would like to transfer the money to.");
 						String number = in.nextLine();
