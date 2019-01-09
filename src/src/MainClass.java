@@ -15,7 +15,7 @@ public class MainClass
 		ArrayList<BankAccount> myAccounts = new ArrayList<BankAccount>();
 		final double OVER_DRAFT_FEE = 15;
 		final double TRANSACTION_FEE = 1.5;
-		final double FREE_TRANSACTIONS = 10;
+		final double FREE_TRANSACTIONS = 2;
 		final double INT_RATE = 0.0025;
 		final double MIN_BALANCE = 300;
 		final double MIN_BALANCE_FEE = 10;
@@ -80,6 +80,7 @@ public class MainClass
 								boolean retrieveAccounts = true;
 								while(retrieveAccounts)
 								{	
+									int count = 0;
 									System.out.println("Please enter your name."); 
 									input = in.nextLine();
 									for(int i = 0; i < myAccounts.size(); i++)
@@ -91,9 +92,12 @@ public class MainClass
 												allAccounts += "\tChecking Account\n";
 											else if(myAccounts.get(i) instanceof SavingsAccount)
 												allAccounts += "\tSavings Account\n";
+											count++;
 											retrieveAccounts = false;
 										}
 									}
+									if(count == 0)
+										System.out.println("That is an invalid name.");
 								}
 								System.out.println(allAccounts);
 								invalidAccount = false;
@@ -107,8 +111,15 @@ public class MainClass
 				System.out.println("Would you like to deposit, withdraw, transfer, or retrieve all accounts?");
 				input = in.nextLine();
 				
+				while(!input.trim().toLowerCase().equals("deposit") && !input.trim().toLowerCase().equals("withdraw") && !input.trim().toLowerCase().equals("transfer") && !input.trim().toLowerCase().equals("retrieve all accounts"))
+				{
+					System.out.println("That is an invalid input. Would you like to deposit, withdraw, transfer, or retrieve all accounts?");
+					input = in.nextLine();
+				}
+				
 				switch(input)
 				{
+					//deposit
 					case "deposit":
 						System.out.println("Please enter the amount of money you would like to deposit.");
 						String amount = in.nextLine();
@@ -127,6 +138,7 @@ public class MainClass
 					}
 					break;
 					
+					//withdraw
 					case "withdraw":
 						System.out.println("Please enter the amount of money you would like to withdraw.");
 						amount = in.nextLine();
@@ -145,6 +157,7 @@ public class MainClass
 					}
 					break;
 					
+					//transfer
 					case "transfer":
 						System.out.println("Please enter the amount of money you would like to transfer.");
 						amount = in.nextLine();
@@ -179,14 +192,37 @@ public class MainClass
 									invalidAccount = false;
 								else if(input.trim().toLowerCase().equals("retrieve all accounts"))
 								{
-									
+									String allAccounts = "";
+									boolean retrieveAccounts = true;
+									while(retrieveAccounts)
+									{	
+										int count = 0;
+										System.out.println("Please enter your name."); 
+										input = in.nextLine();
+										for(int i = 0; i < myAccounts.size(); i++)
+										{
+											if(myAccounts.get(i).getName().equals(input))
+											{
+												allAccounts += myAccounts.get(i).toString();
+												if(myAccounts.get(i) instanceof CheckingAccount)
+													allAccounts += "\tChecking Account\n";
+												else if(myAccounts.get(i) instanceof SavingsAccount)
+													allAccounts += "\tSavings Account\n";
+												count++;
+												retrieveAccounts = false;
+											}
+										}
+										if(count == 0)
+											System.out.println("That is an invalid name.");
+									}
+									System.out.println(allAccounts);
+									invalidAccount = false;
 								}
 								else
 									System.out.println("That is an invalid input. Please try again.");
 							}
 						}
 					}
-					
 					try
 					{
 						account.transfer(account2, Double.parseDouble(amount));
@@ -197,12 +233,33 @@ public class MainClass
 					}
 					break;
 					
+					//retrieve all accounts
 					case "retrieve all accounts":
-						
-					break;
-					
-					default:
-						System.out.println("That is an invalid input. Please try again.");
+						String allAccounts = "";
+						boolean retrieveAccounts = true;
+						while(retrieveAccounts)
+						{	
+							int count = 0;
+							System.out.println("Please enter your name."); 
+							input = in.nextLine();
+							for(int i = 0; i < myAccounts.size(); i++)
+							{
+								if(myAccounts.get(i).getName().equals(input))
+								{
+									allAccounts += myAccounts.get(i).toString();
+									if(myAccounts.get(i) instanceof CheckingAccount)
+										allAccounts += "\tChecking Account\n";
+									else if(myAccounts.get(i) instanceof SavingsAccount)
+										allAccounts += "\tSavings Account\n";
+									count++;
+									retrieveAccounts = false;
+								}
+							}
+							if(count == 0)
+								System.out.println("That is an invalid name.");
+						}
+						System.out.println(allAccounts);
+					break;	
 				}
 			}
 			else if(input.equals("terminate the program"))
